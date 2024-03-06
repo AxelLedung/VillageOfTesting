@@ -1,9 +1,11 @@
 package org.example;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import java.io.ByteArrayInputStream;
@@ -17,14 +19,21 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 class VillageInputTest {
+    DatabaseConnection dbMock;
+    @BeforeEach
+    public void Setup() {
+        dbMock = mock(DatabaseConnection.class);
+    }
     @Test
     public void Save_Test() {
+        InputStream backup = System.in;
 
-        DatabaseConnection dbMock = mock(DatabaseConnection.class);
+        
+
         Village village = new Village();
         boolean hej = dbMock.SaveVillage(village, "Save1");
         assertEquals(true, hej );
-        /*
+
         Village village = new Village();
 
         String myInput = "Save1";
@@ -34,7 +43,7 @@ class VillageInputTest {
         VillageInput villageInput = new VillageInput(village, dbMock);
         villageInput.scanner = new Scanner(System.in);
 
-        villageInput.Save();*/
+        villageInput.Save();
         //Assertions.assertEquals(1, 1);
     }
 
