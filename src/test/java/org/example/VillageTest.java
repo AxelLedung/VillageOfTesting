@@ -187,5 +187,168 @@ class VillageTest {
         assertEquals(95, village.getWood());
         assertEquals(10, village.getMetal());
     }
+    @Test
+    public void AddProject_WithExactResourceAmount() {
+        Village village = new Village();
+        village.setFood(100);
+        village.AddWorker("Adam", "builder");
+        village.setWood(5);
+        village.setMetal(0);
+        village.AddProject("House");
+        village.Day();
 
+        assertEquals(1, village.getProjects().size());
+    }
+    @Test
+    public void AddProject_LetWorkersFinishBuilding_House() {
+        Village village = new Village();
+        village.setFood(100);
+        village.AddWorker("Adam", "builder");
+        village.setWood(100);
+        village.setMetal(1000);
+        village.AddProject("House");
+        village.Day();
+        village.Day();
+        village.Day();
+
+        assertEquals(4, village.getBuildings().size());
+        assertEquals(8, village.getMaxWorkers());
+    }
+    @Test
+    public void AddProject_LetWorkersFinishBuilding_WoodMill() {
+        Village village = new Village();
+        village.setFood(100);
+        village.setMaxWorkers(100);
+        village.AddWorker("Adam", "builder");
+        village.AddWorker("Bertil", "builder");
+        village.AddWorker("Ceasar", "builder");
+        village.AddWorker("David", "builder");
+        village.AddWorker("Erik", "builder");
+        village.AddWorker("Filip", "lumberjack");
+        village.setWood(100);
+        village.setMetal(1000);
+        village.AddProject("Woodmill");
+        System.out.println(village.getWood());
+        village.Day();
+
+
+        assertEquals(4, village.getBuildings().size());
+        assertEquals(97, village.getWood());
+    }
+    @Test
+    public void AddWood_Adding5() {
+        Village village = new Village();
+        village.setWood(10);
+        String workerName = "Adam";
+        String workerOccupation = "lumberjack";
+        village.AddWorker(workerName, workerOccupation);
+        village.setWoodPerDay(5);
+        village.AddWood(workerName);
+
+        assertEquals(15, village.getWood());
+    }
+
+    //Since the Player is not able to input any negative numbers this is not a problem
+    @Test
+    public void AddWood_AddmingNegative5_ShouldNotBePossible() {
+        Village village = new Village();
+        village.setWood(0);
+        String workerName = "Adam";
+        String workerOccupation = "lumberjack";
+        village.AddWorker(workerName, workerOccupation);
+        village.setWoodPerDay(-5);
+        village.AddWood(workerName);
+
+        assertEquals(-5, village.getWood());
+    }
+    @Test
+    public void AddMetal_Adding5() {
+        Village village = new Village();
+        village.setMetal(10);
+        String workerName = "Adam";
+        String workerOccupation = "miner";
+        village.AddWorker(workerName, workerOccupation);
+        village.setMetalPerDay(5);
+        village.AddMetal(workerName);
+
+        assertEquals(15, village.getMetal());
+    }
+    @Test
+    public void AddFood_Adding5() {
+        Village village = new Village();
+        village.setFood(10);
+        String workerName = "Adam";
+        String workerOccupation = "farmer";
+        village.AddWorker(workerName, workerOccupation);
+        village.setFoodPerDay(5);
+        village.AddFood(workerName);
+
+        assertEquals(15, village.getFood());
+    }
+
+    @Test
+    public void Playthrough1() {
+        Village village = new Village();
+        village.AddWorker("A", "farmer");
+        village.AddWorker("B", "farmer");
+        village.AddWorker("C", "lumberjack");
+        village.AddWorker("D", "lumberjack");
+        village.AddWorker("E", "lumberjack");
+        village.AddWorker("F", "builder");
+
+        village.Day();
+        village.Day();
+        village.AddProject("House");
+        village.Day();
+        village.Day();
+        village.Day();
+        village.AddWorker("G", "builder");
+        village.AddWorker("H", "builder");
+        village.AddProject("House");
+        village.Day();
+        village.AddWorker("J", "miner");
+        village.AddWorker("K", "miner");
+        village.Day();
+        village.AddProject("Woodmill");
+        village.Day();
+        village.Day();
+        village.Day();
+        village.AddProject("Quarry");
+        village.Day();
+        village.Day();
+        village.Day();
+        village.AddProject("Quarry");
+        village.Day();
+        village.AddProject("Quarry");
+        village.Day();
+        village.Day();
+        village.Day();
+        village.AddProject("House");
+        village.AddProject("House");
+        village.Day();
+        village.AddWorker("L", "builder");
+        village.AddWorker("M", "builder");
+        village.AddWorker("N", "builder");
+        village.AddWorker("O", "builder");
+        village.Day();
+        village.Day();
+        village.Day();
+        village.AddProject("Castle");
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        village.Day();
+        assertTrue(village.isGameOver());
+
+    }
 }
