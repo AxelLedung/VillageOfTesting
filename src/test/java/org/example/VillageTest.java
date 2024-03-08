@@ -187,4 +187,5 @@ class VillageTest {
         assertEquals(95, village.getWood());
         assertEquals(10, village.getMetal());
     }
+
 }

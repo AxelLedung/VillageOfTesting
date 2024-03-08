@@ -129,8 +129,8 @@ public class Village {
     public void AddProject(String name) {
         if (possibleProjects.containsKey(name)) {
             PossibleProject possibleProject = possibleProjects.get(name);
-            if (getWood() > possibleProject.getWoodCost() &&
-                    getMetal() > possibleProject.getMetalCost()) {
+            if (getWood() >= possibleProject.getWoodCost() &&
+                    getMetal() >= possibleProject.getMetalCost()) {
                 wood -= possibleProject.getWoodCost();
                 metal -= possibleProject.getMetalCost();
 
