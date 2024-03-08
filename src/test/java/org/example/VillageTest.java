@@ -31,6 +31,19 @@ class VillageTest {
         assertEquals(1, workerArrayList.size());
     }
     @Test
+    public void AddWorker_CanAddTwoWorker_WithCorrectOccupation() {
+        Village village = new Village();
+        String worker1Name = "Adam";
+        String worker1Occupation = "farmer";
+        village.AddWorker(worker1Name, worker1Occupation);
+        String worker2Name = "Bertil";
+        String worker2Occupation = "miner";
+        village.AddWorker(worker2Name, worker2Occupation);
+        ArrayList<Worker> workerArrayList = village.getWorkers();
+
+        assertEquals(2, workerArrayList.size());
+    }
+    @Test
     public void AddWorker_CanAddOneWorker_WithWrongOccupation() {
         Village village = new Village();
         String workerName = "Adam";
@@ -39,6 +52,37 @@ class VillageTest {
         ArrayList<Worker> workerArrayList = village.getWorkers();
 
         assertEquals(0, workerArrayList.size());
+    }
+    @Test
+    public void AddWorker_Day_MinerDoesCorrectWork() {
+        Village village = new Village();
+        String workerName = "Adam";
+        String workerOccupation = "miner";
+        village.AddWorker(workerName, workerOccupation);
+        village.setMetal(5);
+
+        village.Day();
+
+        assertEquals(6, village.getMetal());
+    }
+    @Test
+    public void AddWorker_Day_FarmerDoesCorrectWork() {
+        Village village = new Village();
+        String workerName = "Adam";
+        String workerOccupation = "farmer";
+        village.AddWorker(workerName, workerOccupation);
+        village.setFood(5);
+
+        village.Day();
+
+        assertEquals(9, village.getFood());
+    }
+    @Test
+    public void IsFull_ReturnsTrueOnFullWorkerList() {
+        Village village = new Village();
+        village.AddWorker("Adam", "farmer");
+        village.setMaxWorkers(village.getWorkers().size());
+        assertTrue(village.isFull());
     }
     @Test
     public void Day_ContinuesToNextDay_WhenNoWorkerCreated() {
@@ -142,7 +186,5 @@ class VillageTest {
         village.Day();
         assertEquals(95, village.getWood());
         assertEquals(10, village.getMetal());
-
     }
-
 }
